@@ -79,7 +79,7 @@ def nlp_emb_mergeTemplateEmbeddings_HDFS(dir, templates, logger):
     To merge token embeddings trained by fastText into templates embeddings.
     :return: No return value, but write result to a new .vec file.
     '''
-    nlp_emb_file = 'dataset/nlp-word.vec'
+    nlp_emb_file = 'dataset/glove/glove.6B.300d.txt'
     if not os.path.exists(dir):
         os.makedirs(dir)
     templates_emb_file = os.path.join(dir, 'templates_HDFS.vec')
@@ -166,7 +166,7 @@ def nlp_emb_mergeTemplateEmbeddings_BGL(dir, templates, dataset, logger):
     :param logger:
     :return: No return value, but write result to a new .vec file.
     '''
-    nlp_emb_file = 'dataset/nlp-word.vec'
+    nlp_emb_file = 'dataset/glove/glove.6B.300d.txt'
     vec_file = ''
     if not os.path.exists(dir):
         os.makedirs(dir)

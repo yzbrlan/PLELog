@@ -232,7 +232,7 @@ def PULearn(pre_train, pre_dev, pre_test, save_path, min_cluster_size=None, min_
 def main_process(save_path, pre_train, pre_dev, pre_test, ratios, hdbscan_option,
                  min_samples, min_cluster_size, reduce_dim, config_file, extra_args, thread_num, target_gpu, logger,
                  thredhold=0.5):
-    mpl.use('Agg')
+    # mpl.use('Agg')
     gpu = torch.cuda.is_available()
     mid_dir = 'train-' + str(ratios[0])
     save_path = os.path.join(save_path, mid_dir)
@@ -333,6 +333,9 @@ if __name__ == '__main__':
     reduce_dim = args.reduce_dim
     fixLength = 120
     threshold = args.threshold
+    # Specify outmodel
+    if not os.path.exists('outmodel'):
+        os.makedirs('outmodel')
     config = Configurable(config_file, extra_args)
     # Specify logger
     if not os.path.exists('logs'):
@@ -350,14 +353,14 @@ if __name__ == '__main__':
     logger.setLevel(logging.INFO)
     # Load raw log instances.
     if dataset == 'HDFS':
-        templatesDir = 'dataset/HDFS/results'
-        save_path = 'dataset/HDFS'
+        templatesDir = 'dataset/HDFS/templates'
+        save_path = 'dataset/HDFS/embs'
         logID2Temp, templates = loadTemplates(templatesDir, logger)
         templateVocab = nlp_emb_mergeTemplateEmbeddings_HDFS(save_path, templates, logger)
         pre_train, pre_dev, pre_test, _ = prepare_data(logID2Temp, templateVocab, dataset, fixLength, logger, ratios)
     elif dataset == 'BGL':
-        templatesDir = 'dataset/BGL/results'
-        save_path = 'dataset/BGL'
+        templatesDir = 'dataset/BGL/templates'
+        save_path = 'dataset/BGL/embs'
         logID2Temp, templates = loadTemplates(templatesDir, logger)
         templateVocab = nlp_emb_mergeTemplateEmbeddings_BGL(save_path, templates, dataset, logger)
         pre_train, pre_dev, pre_test, _ = prepare_data(logID2Temp, templateVocab, dataset, fixLength, logger, ratios)

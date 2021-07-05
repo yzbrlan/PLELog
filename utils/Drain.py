@@ -294,18 +294,33 @@ class Drain:
 
 
 if __name__ == '__main__':
-    # HDFS parameters for example
-    path = 'dataset/HDFS/'
-    fileName = 'HDFS.log'
-    removeCol = [0, 1, 2, 3, 4]  # [0,1,2,3,4] for HDFS
-    st = 0.5
-    depth = 4
-    rex = ['blk_(|-)[0-9]+', '(/|)([0-9]+\.){3}[0-9]+(:[0-9]+|)(:|)']
+    dataset = "HDFS"
 
-    parserPara = Para(savePath='dataset/HDFS/results/', path=path, st=st, logName=fileName, removeCol=removeCol, rex=rex,
-                      depth=depth)
-    myParser = Drain(parserPara)
-    myParser.mainProcess()
+    if dataset == 'HDFS':
+        # HDFS parameters for example
+        path = '../dataset/HDFS/'
+        fileName = 'HDFS.log'
+        savePath = '../dataset/HDFS/templates/'
+        removeCol = [0, 1, 2, 3, 4]  # [0,1,2,3,4] for HDFS
+        st = 0.5
+        depth = 4
+        rex = ['blk_(|-)[0-9]+', '(/|)([0-9]+\.){3}[0-9]+(:[0-9]+|)(:|)']
+        parserPara = Para(savePath=savePath, path=path, st=st, logName=fileName, removeCol=removeCol, rex=rex,
+                          depth=depth)
+        myParser = Drain(parserPara)
+        myParser.mainProcess()
+    else:
+        path = '../dataset/BGL/'
+        fileName = 'bgl2'
+        savePath = '../dataset/BGL/templates/'
+        removeCol = [0, 1, 2, 3, 4, 5, 6, 7, 8]  # for BGL
+        st = 0.3
+        depth = 3
+        rex = ['blk_(|-)[0-9]+', '(/|)([0-9]+\.){3}[0-9]+(:[0-9]+|)(:|)']
+        parserPara = Para(savePath=savePath, path=path, st=st, logName=fileName, removeCol=removeCol, rex=rex,
+                          depth=depth)
+        myParser = Drain(parserPara)
+        myParser.mainProcess()
 
 # Parameters for experiments in the ICWS submission
 

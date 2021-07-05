@@ -171,11 +171,7 @@ def loadHDFSLogs(logID2Temp, logger):
             line = line.strip()
             if line != '':
                 blk, label = line.split(',')
-                if blk not in labels.keys():
-                    print(blk)
-                    print('Missing block id in log data file.')
-                    exit(-2)
-                else:
+                if blk in labels.keys():
                     labels[blk] = label
     logger.info('Read log label finished. time = %.2f ' % (time.time() - start))
     for blk, seq in logs.items():

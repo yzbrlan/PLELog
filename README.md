@@ -120,3 +120,7 @@ optional arguments:
 
 We are happy to see `PLELog` being applied in the real world and willing to contribute to the community. Feel free to contact us if you have any questions!
 Currently omitted.
+
+## Command
+python pipeline.py --dataset HDFS --config_file config/HDFS.cfg --thread 1 --hdbscan_option 1 --threshold 0.5
+python pipeline.py --dataset BGL --config_file config/BGL.cfg --thread 1 --hdbscan_option 1 --threshold 0.5

@@ -86,7 +86,7 @@ def train_model(data, dev, test_data, anomaly_detection, vocab, config, vec=None
                         bestModel.load_state_dict(anomaly_detection.model.state_dict())
                         bestClassifier = AnomalyDetectionBCELoss(bestModel, vocab)
 
-        logger.info('Training iter %d finished in %.2f.' % (float(time.time() - start_time)))
+        logger.info('Training iter %d finished in %.2f.' % (iter, float(time.time() - start_time)))
     logger.info('Training process finished in %.2f, start testing final model on testing set.' % (
         float(time.time() - start_time)))
     final_p, final_r, final_f = evaluate(test_data, anomaly_detection, config, vocab, logger, threshold=threshold)

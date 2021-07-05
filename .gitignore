@@ -3,3 +3,5 @@ __init__.py
 .idea
 logs
 venv
+dataset
+outmodel
