@@ -221,7 +221,7 @@ def loadBGLLogs_node_fixLength(logID2Temp, fixLength):
     '''
     print('loadBGLLogs_node_fixLength')
     check_node_list = []
-    with open('dataset/BGL/BGL.log', 'r', encoding='utf-8') as raw_reader:
+    with open('dataset/BGL/bgl2', 'r', encoding='utf-8') as raw_reader:
         # all_log = []  # every data is line
         node_log = {}
         idx = 0
