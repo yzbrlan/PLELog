@@ -4,4 +4,3 @@ __init__.py
 logs
 venv
 dataset
-outmodel
