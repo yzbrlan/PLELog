@@ -118,6 +118,9 @@ def prepare_data(logID2Temp, templateVocab, dataset, fixLength, logger, ratio=[6
 def PULearn1(pre_train, pre_dev, pre_test, save_path, min_cluster_size=None, min_samples=None,
              option=None, rd=False, logger=None):
     global labelledNum, refresh
+    logger.info('PULearn start.')
+    logger.info('Train : %d, Dev : %d, Test : %d' % (len(pre_train), len(pre_dev), len(pre_test)))
+
     start_time = time.time()
     if pre_train is not None and (not os.path.exists(os.path.join(save_path, 'HDBscan_result.txt')) or refresh):
         trainReprs = []
