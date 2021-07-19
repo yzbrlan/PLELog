@@ -340,17 +340,34 @@ if __name__ == '__main__':
     # Specify logger
     if not os.path.exists('logs'):
         os.makedirs('logs')
+
     logger_name = '_'.join(
         [dataset, str(hdbscan_option), 'rd-' + str(reduce_dim),
          'mcs-' + str(min_cluster_size),
          'ms-' + str(min_samples),
          'hidden_' + str(config.lstm_hiddens),
-         'layer_' + str(config.lstm_layers)])
+         'layer_' + str(config.lstm_layers), time.strftime("%Y-%m-%d_%Hh-%Mm-%Ss", time.localtime())])
 
-    hdlr = logging.FileHandler(os.path.join('logs', logger_name))
-    logger = logging.getLogger('main')
-    logger.addHandler(hdlr)
+    # hdlr = logging.FileHandler(os.path.join('logs', logger_name))
+    # logger = logging.getLogger('main')
+    # logger.addHandler(hdlr)
+    # logger.setLevel(logging.INFO)
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger()
     logger.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    log_file = os.path.join("logs", logger_name)
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    logger.info("log file name %s" % logger_name)
+    logger.info("dataset %s" % dataset)
+    logger.info("target_gpu %s" % target_gpu)
+    logger.info(" reduce_dim %s, min_cluster_size %s ,min_samples %s, hiddens %s,layer %s" % (
+        reduce_dim, min_cluster_size, min_samples, config.lstm_hiddens, config.lstm_layers))
+
     # Load raw log instances.
     if dataset == 'HDFS':
         templatesDir = 'dataset/HDFS/templates'

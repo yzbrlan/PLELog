@@ -2,6 +2,7 @@ import datetime
 import os
 import re
 import time
+import logging
 
 from data.Instance import *
 from data.TensorInstances import *
@@ -219,7 +220,11 @@ def loadBGLLogs_node_fixLength(logID2Temp, fixLength):
     :param: logID2Temp log id to template mapping, None means raw log
     :return: instances list
     '''
-    print('loadBGLLogs_node_fixLength')
+    logger = logging.getLogger('main')
+    logger.setLevel(logging.INFO)
+    logger.info('Load bgl data file start. the fixLength = %s' % (fixLength))
+    start = time.time()
+
     check_node_list = []
     with open('dataset/BGL/bgl2', 'r', encoding='utf-8') as raw_reader:
         # all_log = []  # every data is line
@@ -244,8 +249,8 @@ def loadBGLLogs_node_fixLength(logID2Temp, fixLength):
                 node_log[node] = []
             node_log[node].append(BGL_Log(label, dt, templateWord))
     assert len(node_log) == len(set(check_node_list))
-    print('node', len(node_log))
-    print("all_log done")
+    logger.info('Load raw data file finished. time = %.2f' % (time.time() - start))
+
     count_nor_log = 0
     count_abnor_log = 0
     for ins_list in node_log.values():
@@ -254,8 +259,7 @@ def loadBGLLogs_node_fixLength(logID2Temp, fixLength):
                 count_nor_log += 1
             else:
                 count_abnor_log += 1
-    print('count_nor_log', count_nor_log)
-    print('count_abnor_log', count_abnor_log)
+
     window_list = []
 
     # ------------- get instance ------------
@@ -275,7 +279,6 @@ def loadBGLLogs_node_fixLength(logID2Temp, fixLength):
             if i == len(ins_list) - 1:
                 window_list.append(parseInstance(window_log_events, instId, window_label))
                 instId += 1
-    print('sequence_list', len(window_list))
     return window_list
 
 
