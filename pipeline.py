@@ -337,8 +337,8 @@ if __name__ == '__main__':
     fixLength = 120
     threshold = args.threshold
     # Specify outmodel
-    if not os.path.exists('outmodel'):
-        os.makedirs('outmodel')
+    if not os.path.exists('outmodel/' + dataset):
+        os.makedirs('outmodel/' + dataset)
     if not os.path.exists('output_res'):
         os.makedirs('output_res')
     config = Configurable(config_file, extra_args)
