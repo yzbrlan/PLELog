@@ -193,7 +193,7 @@ def PULearn(pre_train, pre_dev, pre_test, save_path, min_cluster_size=None, min_
                            min_cluster_size=min_cluster_size if min_cluster_size else 5,
                            min_samples=min_samples if min_samples and min_samples != -1 else None,
                            core_dist_n_jobs=10)
-        predicts = estimator.fit_predict(np.asarray(trainReprs, dtype=np.float)).tolist()
+        predicts = estimator.fit_predict(np.asarray(trainReprs, dtype=float)).tolist()
         outliers = estimator.outlier_scores_.tolist()
         hdbscanInstances = []
         for i, inst in enumerate(pre_train):
