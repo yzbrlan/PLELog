@@ -339,6 +339,8 @@ if __name__ == '__main__':
     # Specify outmodel
     if not os.path.exists('outmodel'):
         os.makedirs('outmodel')
+    if not os.path.exists('output_res'):
+        os.makedirs('output_res')
     config = Configurable(config_file, extra_args)
     # Specify logger
     if not os.path.exists('logs'):

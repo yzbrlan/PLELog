@@ -69,7 +69,7 @@ def train_model(data, dev, test_data, anomaly_detection, vocab, config, vec=None
 
             batch_iter += 1
             if batch_iter % config.update_every == 0 or batch_iter == batch_num:
-                nn.utils.clip_grad_norm_(filter(lambda p: p.requires_grad, anomaly_detection.model.parameters()), \
+                nn.utils.clip_grad_norm_(filter(lambda p: p.requires_grad, anomaly_detection.model.parameters()),
                                          max_norm=config.clip)
                 optimizer.step()
                 anomaly_detection.model.zero_grad()
@@ -78,7 +78,6 @@ def train_model(data, dev, test_data, anomaly_detection, vocab, config, vec=None
                 if batch_iter % config.validate_every == 0 or batch_iter == batch_num:
                     logger.info('Testing on dev set.')
                     _, _, f = evaluate(dev, anomaly_detection, config, vocab, logger)
-                    logger.info('\n')
                     if f > bestF:
                         logger.info("Exceed best f: history = %.2f, current = %.2f\n" % (bestF, f))
                         bestF = f
@@ -86,7 +85,7 @@ def train_model(data, dev, test_data, anomaly_detection, vocab, config, vec=None
                         bestModel.load_state_dict(anomaly_detection.model.state_dict())
                         bestClassifier = AnomalyDetectionBCELoss(bestModel, vocab)
 
-        logger.info('Training iter %d finished in %.2f.' % (iter, float(time.time() - start_time)))
+        logger.info('Training iter %d finished in %.2f.\n' % (iter, float(time.time() - start_time)))
     logger.info('Training process finished in %.2f, start testing final model on testing set.' % (
         float(time.time() - start_time)))
     final_p, final_r, final_f = evaluate(test_data, anomaly_detection, config, vocab, logger, threshold=threshold)
