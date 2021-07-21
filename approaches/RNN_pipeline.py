@@ -139,9 +139,13 @@ def evaluate(data, classifier, config, vocab, logger, outputFile=None, threshold
             precision = 100 * TP / (TP + FP)
             recall = 100 * TP / (TP + FN)
             f = 2 * precision * recall / (precision + recall)
+            TPR = 100 * TP / (TP + FN)
+            FPR = 100 * FP / (FP + TN)
             end = time.time()
-            logger.info('Precision = %d / %d = %.4f, Recall = %d / %d = %.4f F1 score = %.4f, time = %.2f'
-                        % (TP, (TP + FP), precision, TP, (TP + FN), recall, f, end - start))
+            logger.info('Precision = %d / %d = %.4f, Recall = %d / %d = %.4f, F1 score = %.4f'
+                        % (TP, (TP + FP), precision, TP, (TP + FN), recall, f))
+            logger.info('TPR = %d / %d = %.4f, FPR = %d / %d = %.4f, time = %.2f'
+                        % (TP, (TP + FN), TPR, FP, (FP + TN), FPR, end - start))
             if outputFile:
                 output.close()
         else:
